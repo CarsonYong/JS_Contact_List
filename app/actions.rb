@@ -12,7 +12,9 @@ end
 post '/contacts' do
   @contact = Contact.new(params[:contact])
   if @contact.save 
-    status 200
+    # status 200
+    content_type :json
+    @contact.to_json
   else
     status 500 
   end
@@ -20,11 +22,12 @@ end
 
 get '/contacts/:id' do
   @contact = Contact.find(params[:id])
-  @contact.to_json
+  content_type :json
+    @contact.to_json
 end
 
-delete '/contact/:id' do
-  @conact.delete(params[:id])
+delete '/contacts/:id' do
+  Contact.delete(params[:id])
   status 200
 end
 
